@@ -1,7 +1,7 @@
 version: '3.6'
 
 services:
-  python-hello-world:
+  cloudshell:
     image: hub.foundries.io/arduino/cloudshell:latest
     restart: always
     tty: true
