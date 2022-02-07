@@ -1,4 +1,17 @@
+# Copyright (c) 2022 Arduino.cc
+#
+# Based on https://github.com/bcmi-labs/cloudshell
+#
+# License: MIT
+
+# Examples:
+# docker build --tag "cloudshell:latest" .
+# docker run -p 8000:8000 -it --rm --user "63" -it cloudshell:latest
+
 FROM golang:1.16-alpine AS backend
+
+LABEL maintainer="Massimo Pennazio <maxipenna@libero.it>"
+
 WORKDIR /go/src/cloudshell
 COPY ./cmd ./cmd
 COPY ./internal ./internal
@@ -35,5 +48,9 @@ RUN mkdir -p /home/user
 RUN chown user:user /app -R
 WORKDIR /
 ENV WORKDIR=/app
+ENV LOG_LEVEL="trace"
+ENV ALLOWED_HOSTNAMES="portenta-x8.local"
+ENV SERVER_PORT="8000"
+ENV SERVER_ADDRESS="192.168.7.1"
 USER user
 ENTRYPOINT ["/app/cloudshell"]
